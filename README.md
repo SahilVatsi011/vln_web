@@ -1,6 +1,6 @@
 # VLN Web UI
 
-Voice-enabled web interface for robot navigation.
+Voice-enabled web interface for Robo navigation.
 
 ## Quick Start
 
@@ -20,17 +20,16 @@ python3 -m vln_web --port 5001
 http://localhost:5001
 ```
 
-## On Robot
+## On Robo
 
-### SSH to Robot
+### SSH to Robo
 ```bash
-ssh chitti@100.91.187.103
-# Password: 123456
+ssh chitti@127.0.0.1
 ```
 
-### Start Robot Inference
+### Start Robo Inference
 ```bash
-cd VLN-DAPO-main
+cd VLN
 python3 infer.py --checkpoint_path checkpoints/Qwen2.5-VL-3B_rl_rxr_4000_step350
 ```
 
@@ -42,7 +41,7 @@ python3 -m vln_web --port 5001
 
 ### Access from Browser
 ```
-http://100.91.187.103:5001
+http://127.0.0.1:5001
 ```
 
 ## Usage
@@ -72,4 +71,4 @@ http://100.91.187.103:5001
 ## Ports
 
 - Web UI: `5001`
-- Robot: `100.91.187.103`
+- Robo: `127.0.0.1`

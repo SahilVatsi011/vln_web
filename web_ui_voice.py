@@ -751,12 +751,331 @@ HTML = r"""<!DOCTYPE html>
     .cam-panel { border-right: none; border-bottom: 1px solid var(--border-dim); }
     .stats { grid-template-columns: repeat(2, 1fr); }
   }
+  
   @media (max-width: 640px) {
-    .stats { grid-template-columns: 1fr; }
-    header { padding: 10px 16px; gap: 10px; }
-    .ctrl-bar { flex-wrap: wrap; padding: 10px 14px; }
-    .ctrl-bar .label { width: 100%; }
-    .voice-card { padding: 32px 24px; }
+    /* Prevent horizontal scroll */
+    * { max-width: 100%; }
+    
+    header { 
+      padding: 12px 16px; 
+      gap: 12px;
+      flex-wrap: nowrap;
+    }
+    
+    .brand {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .brand-text h1 { 
+      font-size: 0.95rem;
+      letter-spacing: -0.2px;
+    }
+    
+    .brand-text .sub { 
+      display: none; 
+    }
+    
+    .logo {
+      height: 36px;
+    }
+    
+    .badge {
+      font-size: 0.65rem;
+      padding: 6px 12px;
+      letter-spacing: 0.5px;
+      flex-shrink: 0;
+    }
+    
+    /* Stats - 2x2 grid */
+    .stats { 
+      grid-template-columns: 1fr 1fr; 
+      gap: 10px; 
+      padding: 12px 16px; 
+    }
+    
+    .stat { 
+      padding: 12px 14px;
+      gap: 8px;
+    }
+    
+    .stat .v { 
+      font-size: 0.85rem;
+      line-height: 1.2;
+    }
+    
+    .stat .k {
+      font-size: 0.6rem;
+      letter-spacing: 0.8px;
+    }
+    
+    .stat .icon-wrap { 
+      width: 26px; 
+      height: 26px; 
+      font-size: 0.8rem; 
+    }
+    
+    /* Control bar - optimized mobile layout */
+    .ctrl-bar { 
+      flex-wrap: wrap; 
+      padding: 14px 16px 16px; 
+      gap: 10px; 
+    }
+    
+    .ctrl-bar .label { 
+      display: none; 
+    }
+    
+    /* Row 1: Mic + Input */
+    .mic-btn { 
+      order: 0; 
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: rgba(99, 102, 241, 0.15);
+    }
+    
+    .mic-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    #instr-input { 
+      order: 1; 
+      flex: 1;
+      min-width: 0;
+      font-size: 16px; /* Prevents iOS zoom */
+      padding: 12px 16px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(17, 24, 39, 0.95);
+      border: 2px solid rgba(99, 102, 241, 0.2);
+      color: #ffffff;
+      font-weight: 500;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+    
+    #instr-input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+    
+    #instr-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow),
+                  inset 0 2px 4px rgba(0, 0, 0, 0.15);
+      background: rgba(17, 24, 39, 1);
+    }
+    
+    #instr-input:not(:placeholder-shown) {
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 1px var(--cyan),
+                  inset 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Row 2: Set button (full width) */
+    .set { 
+      order: 2; 
+      flex: 1 1 100%;
+      padding: 13px 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      justify-content: center;
+      height: 48px;
+      min-height: 44px;
+    }
+    
+    /* Row 3: Pause + Restart */
+    .pause { 
+      order: 3; 
+      flex: 1 1 calc(50% - 5px);
+      padding: 12px 16px;
+      font-size: 0.8rem;
+      justify-content: center;
+      height: 46px;
+      min-height: 44px;
+    }
+    
+    .restart { 
+      order: 4; 
+      flex: 1 1 calc(50% - 5px);
+      padding: 12px 16px;
+      font-size: 0.8rem;
+      justify-content: center;
+      height: 46px;
+      min-height: 44px;
+    }
+    
+    /* Touch improvements */
+    button {
+      -webkit-tap-highlight-color: rgba(99, 102, 241, 0.15);
+      -webkit-user-select: none;
+      user-select: none;
+      border-radius: 12px;
+    }
+    
+    button:active:not(:disabled) {
+      transform: scale(0.97);
+    }
+    
+    /* Camera panel */
+    .cam-panel { 
+      min-height: 280px; 
+    }
+    
+    .cam-wrap {
+      padding: 16px;
+    }
+    
+    .cam-wrap img {
+      border-radius: 12px;
+    }
+    
+    /* Voice overlay */
+    .voice-card { 
+      padding: 32px 24px;
+      width: 90%;
+      max-width: 420px;
+      gap: 24px;
+      border-radius: 20px;
+    }
+    
+    .voice-visualizer {
+      width: 80px;
+      height: 80px;
+    }
+    
+    .voice-visualizer .core {
+      width: 52px;
+      height: 52px;
+      font-size: 1.35rem;
+    }
+    
+    .voice-visualizer .ring:nth-child(2) {
+      inset: -9px;
+    }
+    
+    .voice-visualizer .ring:nth-child(3) {
+      inset: -18px;
+    }
+    
+    .waveform {
+      height: 36px;
+    }
+    
+    .voice-title {
+      font-size: 1.05rem;
+      letter-spacing: -0.3px;
+    }
+    
+    .voice-subtitle {
+      font-size: 0.8rem;
+      line-height: 1.45;
+    }
+    
+    .voice-transcript {
+      font-size: 0.82rem;
+      padding: 13px 16px;
+      min-height: 46px;
+      border-radius: 12px;
+    }
+    
+    .voice-actions button {
+      padding: 11px 22px;
+      font-size: 0.82rem;
+      min-height: 44px;
+      border-radius: 12px;
+    }
+  }
+  
+  /* Extra small devices */
+  @media (max-width: 380px) {
+    header {
+      padding: 10px 14px;
+    }
+    
+    .logo {
+      height: 32px;
+    }
+    
+    .brand-text h1 {
+      font-size: 0.88rem;
+    }
+    
+    .badge {
+      font-size: 0.6rem;
+      padding: 5px 10px;
+    }
+    
+    .stats {
+      gap: 8px;
+      padding: 10px 14px;
+    }
+    
+    .stat {
+      padding: 10px 12px;
+    }
+    
+    .stat .v {
+      font-size: 0.8rem;
+    }
+    
+    .ctrl-bar {
+      padding: 12px 14px 14px;
+      gap: 8px;
+    }
+    
+    .mic-btn {
+      width: 44px;
+      height: 44px;
+    }
+    
+    .mic-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    #instr-input {
+      font-size: 15px;
+      padding: 11px 14px;
+      height: 44px;
+    }
+    
+    .set {
+      padding: 12px 18px;
+      font-size: 0.82rem;
+      height: 44px;
+    }
+    
+    .pause,
+    .restart {
+      padding: 11px 14px;
+      font-size: 0.78rem;
+      height: 42px;
+    }
+    
+    .cam-panel {
+      min-height: 240px;
+    }
+    
+    .cam-wrap {
+      padding: 14px;
+    }
+    
+    .voice-card {
+      padding: 28px 20px;
+      gap: 20px;
+    }
+    
+    .voice-visualizer {
+      width: 72px;
+      height: 72px;
+    }
+    
+    .voice-visualizer .core {
+      width: 46px;
+      height: 46px;
+      font-size: 1.2rem;
+    }
   }
 </style>
 </head>
@@ -819,7 +1138,7 @@ HTML = r"""<!DOCTYPE html>
     <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
   </button>
   <input id="instr-input" type="text"
-         placeholder="e.g.  walk to the kitchen and stop at the fridge">
+         placeholder="Type instruction or use voice..." autocomplete="off" autocorrect="off" spellcheck="false">
   <button class="set" id="set-btn" onclick="setInstruction()">&#x2713; Set</button>
   <button class="pause" id="pause-btn" onclick="togglePause()">&#x23F8; Pause</button>
   <button class="restart" onclick="restartSession()">&#x21BA; Restart</button>
