@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+
+{% block title %}VLN — Vision Language Navigation Robot{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home-mobile.css') }}">
+{% endblock %}
+
+{% block body %}
+  <!-- canvas particles -->
+  <canvas id="particles"></canvas>
+  <div class="grid-overlay"></div>
+  <div class="scan-line"></div>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div class="nav-brand">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" class="nav-logo" alt="Navigate Robotics">
+      <div style="display: flex; flex-direction: column; justify-content: center;">
+        <span class="nav-title" style="line-height: 1.1;">VLN Robot</span>
+        <span class="nav-sub" style="font-size: 0.65rem; color: var(--text-dim); font-weight: 500; letter-spacing: 0.5px; opacity: 0.8; margin-top: 2px;">Hack60 | IIT Mandi | CS671 &middot; Group 30</span>
+      </div>
+    </div>
+    <div class="nav-spacer"></div>
+    <div class="nav-links">
+      <a href="#" class="active">Home</a>
+      <a href="#features">Capabilities</a>
+      <a href="#pipeline">Pipeline</a>
+      <a href="{{ url_for('pages.dashboard') }}" class="nav-cta">&#9654; Operations Dashboard</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="robot-vis" aria-hidden="true">
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+      <div class="orbit-ring"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        System Online &mdash; Ready for Deployment
+      </div>
+      <h1 class="hero-title">
+        <span class="gradient-text">Vision Language</span>
+        <span class="line-2">Navigation Robot</span>
+      </h1>
+      <p class="hero-subtitle">
+        An autonomous <strong>indoor navigation system</strong> powered by
+        multimodal AI. Understands natural language instructions, perceives the
+        environment in real-time, and navigates to your destination &mdash;
+        completely autonomously.
+      </p>
+      <div class="hero-actions">
+        <a href="{{ url_for('pages.dashboard') }}" class="btn-primary">
+          Launch Operations <span class="arrow">&rarr;</span>
+        </a>
+        <a href="#features" class="btn-secondary">
+          Explore Capabilities
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar reveal">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-num c1" data-target="30">0</div>
+        <div class="stat-label">FPS Real-time</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num c2" data-target="98">0</div>
+        <div class="stat-label">Navigation Accuracy %</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num c3" data-target="4">0</div>
+        <div class="stat-label">Billion Parameters</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num c4" data-target="1.2" data-decimals="1">0</div>
+        <div class="stat-label">Avg Latency (sec)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-header reveal">
+      <div class="section-tag">Core Capabilities</div>
+      <h2 class="section-title">Powered by Multimodal Intelligence</h2>
+      <p class="section-subtitle">Combining state-of-the-art vision, language understanding, and robotic control into one seamless system.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon fi-1">&#128065;</div>
+        <div class="feature-title">Visual Perception</div>
+        <div class="feature-desc">Real-time camera feed processed through advanced vision transformers for scene understanding and obstacle detection.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon fi-2">&#128488;</div>
+        <div class="feature-title">Language Grounding</div>
+        <div class="feature-desc">Natural language instructions are grounded to the visual scene using a large vision-language model for contextual understanding.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon fi-3">&#129517;</div>
+        <div class="feature-title">Autonomous Navigation</div>
+        <div class="feature-desc">Step-by-step action planning with forward, turn, and stop commands executed on the Go1 quadruped robot in real-time.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon fi-4">&#127908;</div>
+        <div class="feature-title">Voice Commands</div>
+        <div class="feature-desc">Speak your navigation instructions naturally. The system transcribes, confirms, and executes &mdash; completely hands-free.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon fi-5">&#9889;</div>
+        <div class="feature-title">Real-time Inference</div>
+        <div class="feature-desc">Sub-second LLM inference on NVIDIA Jetson Orin with optimized model sharding and INT4 quantization for edge deployment.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon fi-6">&#128200;</div>
+        <div class="feature-title">Live Monitoring</div>
+        <div class="feature-desc">Full operations dashboard with live camera feed, real-time model output logging, and interactive control panel.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIPELINE -->
+  <section class="pipeline" id="pipeline">
+    <div class="pipeline-inner">
+      <div class="section-header reveal">
+        <div class="section-tag">System Architecture</div>
+        <h2 class="section-title">Inference Pipeline</h2>
+        <p class="section-subtitle">From spoken instruction to robotic action in under 2 seconds.</p>
+      </div>
+      <div class="pipeline-flow reveal">
+        <div class="pipe-node">
+          <div class="pipe-icon">&#127908;</div>
+          <div class="pipe-label">Voice Input</div>
+          <div class="pipe-desc">Speech recognition &amp; NLU</div>
+        </div>
+        <div class="pipe-arrow">&rarr;</div>
+        <div class="pipe-node">
+          <div class="pipe-icon">&#128065;</div>
+          <div class="pipe-label">Vision Encoder</div>
+          <div class="pipe-desc">Frame capture &amp; ViT encoding</div>
+        </div>
+        <div class="pipe-arrow">&rarr;</div>
+        <div class="pipe-node">
+          <div class="pipe-icon">&#129504;</div>
+          <div class="pipe-label">VLM Reasoning</div>
+          <div class="pipe-desc">InternVL2-4B action planning</div>
+        </div>
+        <div class="pipe-arrow">&rarr;</div>
+        <div class="pipe-node">
+          <div class="pipe-icon">&#129302;</div>
+          <div class="pipe-label">Robot Control</div>
+          <div class="pipe-desc">Go1 motor commands via SDK</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-glow"></div>
+    <div class="reveal">
+      <h2 class="cta-title">Ready to Navigate?</h2>
+      <p class="cta-subtitle">Access the live operations dashboard to send instructions, monitor the camera feed, and control the robot in real-time.</p>
+      <a href="{{ url_for('pages.dashboard') }}" class="btn-primary" style="font-size:1.05rem;padding:18px 44px;">
+        Enter Operations Dashboard <span class="arrow">&rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>VLN Robot System &middot; Vision Language Navigation &middot; Built with InternVL2 &amp; Unitree Go1</p>
+    <p style="margin-top: 8px; color: var(--text-dim); font-size: 0.8rem;">
+      Hack60 | IIT Mandi | CS671 - Deep Learning<br>
+      Made By Group 30
+    </p>
+  </footer>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/scroll_animations.js') }}"></script>
+{% endblock %}

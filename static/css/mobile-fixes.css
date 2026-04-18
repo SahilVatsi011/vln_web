@@ -1,0 +1,356 @@
+/**
+ * mobile-fixes.css — Additional mobile-specific improvements
+ * for touch interactions and better UX on small screens
+ */
+
+/* ── Touch-friendly tap targets ──────────────────────────── */
+
+@media (max-width: 640px) {
+  /* Ensure all interactive elements are at least 44x44px */
+  button,
+  .mic-btn,
+  .filter-btn {
+    min-height: 44px;
+    -webkit-tap-highlight-color: rgba(99, 102, 241, 0.15);
+    -webkit-touch-callout: none;
+  }
+  
+  /* Prevent text selection on buttons */
+  button,
+  .mic-btn,
+  .filter-btn {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* Better touch feedback */
+  button:active:not(:disabled),
+  .mic-btn:active,
+  .filter-btn:active {
+    transform: scale(0.97);
+    transition: transform 0.1s ease;
+  }
+  
+  /* Input field touch improvements */
+  #instr-input {
+    min-height: 48px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+    -webkit-appearance: none;
+    border-radius: 12px;
+    background: rgba(17, 24, 39, 0.95);
+    border: 2px solid rgba(99, 102, 241, 0.2);
+    color: #ffffff;
+    font-weight: 500;
+    padding: 12px 16px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  #instr-input::placeholder {
+    color: rgba(255, 255, 255, 0.35);
+    font-weight: 400;
+  }
+  
+  #instr-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow),
+                inset 0 2px 4px rgba(0, 0, 0, 0.15);
+    background: rgba(17, 24, 39, 1);
+  }
+  
+  #instr-input:focus::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+  }
+  
+  #instr-input:not(:placeholder-shown) {
+    background: rgba(17, 24, 39, 1);
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 1px var(--cyan),
+                inset 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Add a subtle icon indicator when text is entered */
+  #instr-input:not(:placeholder-shown):not(:focus) {
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2322d3ee' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px 16px;
+  }
+  
+  /* Button improvements */
+  button {
+    -webkit-appearance: none;
+    border-radius: 12px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+  
+  button.set {
+    font-weight: 700;
+    box-shadow: 0 3px 12px var(--green-glow);
+  }
+  
+  button.set:active:not(:disabled) {
+    box-shadow: 0 2px 8px var(--green-glow);
+  }
+  
+  button.restart {
+    box-shadow: 0 3px 12px var(--rose-glow);
+  }
+  
+  button.restart:active:not(:disabled) {
+    box-shadow: 0 2px 8px var(--rose-glow);
+  }
+  
+  /* Mic button - perfect circle with better feedback */
+  .mic-btn {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+  
+  .mic-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .mic-btn:active {
+    transform: scale(0.95);
+  }
+  
+  /* Stats improvements */
+  .stat {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .stat:active {
+    transform: scale(0.98);
+  }
+  
+  /* Camera improvements */
+  .cam-wrap img {
+    border-radius: 12px;
+  }
+  
+  /* Log improvements */
+  #log {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Better scroll indicators */
+  #log::-webkit-scrollbar {
+    width: 3px;
+  }
+  
+  #log::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+  }
+  
+  /* Voice overlay improvements */
+  .voice-overlay {
+    padding: 20px;
+  }
+  
+  .voice-card {
+    border-radius: 20px;
+  }
+  
+  .voice-actions button {
+    min-height: 44px;
+    border-radius: 12px;
+  }
+  
+  /* Header improvements */
+  .logo {
+    border-radius: 8px;
+  }
+  
+  .badge {
+    border-radius: 20px;
+  }
+  
+  /* Filter buttons */
+  .filter-btn {
+    border-radius: 8px;
+    min-height: 32px;
+  }
+  
+  /* Scroll button */
+  .scroll-btn {
+    border-radius: 20px;
+    min-height: 36px;
+  }
+}
+
+/* ── Extra small devices (iPhone SE, etc.) ──────────────── */
+
+@media (max-width: 380px) {
+  .mic-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .mic-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  #instr-input {
+    min-height: 44px;
+    font-size: 15px;
+  }
+  
+  button {
+    min-height: 42px;
+  }
+  
+  button.set {
+    min-height: 44px;
+  }
+}
+
+/* ── Landscape mode on mobile ───────────────────────────── */
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .layout {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+  }
+  
+  .cam-panel {
+    border-right: 1px solid var(--border-dim);
+    border-bottom: none;
+    min-height: auto;
+  }
+  
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .ctrl-bar {
+    flex-wrap: nowrap;
+    padding: 12px 16px;
+  }
+  
+  .ctrl-bar .label {
+    display: inline;
+    font-size: 0.65rem;
+  }
+  
+  .mic-btn {
+    order: 0;
+    width: 44px;
+    height: 44px;
+  }
+  
+  #instr-input {
+    order: 1;
+    flex: 1;
+    height: 44px;
+  }
+  
+  .set {
+    order: 2;
+    flex: 0 0 auto;
+    height: 44px;
+  }
+  
+  .pause {
+    order: 3;
+    flex: 0 0 auto;
+    height: 44px;
+  }
+  
+  .restart {
+    order: 4;
+    flex: 0 0 auto;
+    height: 44px;
+  }
+}
+
+/* ── Prevent zoom on iOS ────────────────────────────────── */
+
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px !important; /* Prevents iOS zoom */
+  }
+}
+
+/* ── Safe area insets for notched devices ───────────────── */
+
+@supports (padding: max(0px)) {
+  @media (max-width: 640px) {
+    header {
+      padding-left: max(16px, env(safe-area-inset-left));
+      padding-right: max(16px, env(safe-area-inset-right));
+      padding-top: max(12px, env(safe-area-inset-top));
+    }
+    
+    .ctrl-bar {
+      padding-left: max(16px, env(safe-area-inset-left));
+      padding-right: max(16px, env(safe-area-inset-right));
+      padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+    
+    .ambient-overlay {
+      bottom: max(15px, env(safe-area-inset-bottom));
+      left: max(15px, env(safe-area-inset-left));
+      right: max(15px, env(safe-area-inset-right));
+    }
+    
+    .suggestion-cards {
+      bottom: max(70px, calc(70px + env(safe-area-inset-bottom)));
+      right: max(12px, env(safe-area-inset-right));
+    }
+    
+    .progress-ring {
+      top: max(12px, env(safe-area-inset-top));
+      right: max(12px, env(safe-area-inset-right));
+    }
+  }
+}
+
+/* ── Reduce animations on low-end devices ───────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Dark mode adjustments ──────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  @media (max-width: 640px) {
+    /* Already optimized for dark mode */
+  }
+}
+
+/* ── High contrast mode ─────────────────────────────────── */
+
+@media (prefers-contrast: high) {
+  @media (max-width: 640px) {
+    button {
+      border-width: 2px;
+    }
+    
+    #instr-input {
+      border-width: 2px;
+    }
+    
+    .stat {
+      border-width: 2px;
+    }
+  }
+}

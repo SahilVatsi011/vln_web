@@ -1,0 +1,267 @@
+/**
+ * home-mobile.css — Mobile-specific fixes for home page
+ * Prevents horizontal scrolling and improves touch interactions
+ */
+
+/* ── Prevent horizontal scroll globally ─────────────────── */
+
+html,
+body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  position: relative;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ── Fix elements that might cause overflow ─────────────── */
+
+@media (max-width: 600px) {
+  /* Ensure all sections stay within viewport */
+  section,
+  nav,
+  footer,
+  .hero,
+  .features,
+  .pipeline,
+  .cta,
+  .stats-bar {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  /* Fix grid layouts */
+  .features-grid,
+  .stats-inner,
+  .pipeline-flow {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  /* Fix text overflow */
+  .hero-title,
+  .section-title,
+  .cta-title {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  /* Fix button overflow */
+  .hero-actions,
+  .nav-links {
+    max-width: 100%;
+    overflow: visible;
+  }
+  
+  /* Fix canvas and overlays */
+  #particles,
+  .grid-overlay,
+  .scan-line {
+    max-width: 100vw;
+    width: 100vw;
+  }
+  
+  /* Fix robot visualizer */
+  .robot-vis {
+    max-width: 100vw;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Fix navbar */
+  nav {
+    width: 100%;
+    max-width: 100vw;
+    left: 0;
+    right: 0;
+  }
+  
+  .nav-brand {
+    max-width: calc(100vw - 140px);
+    overflow: hidden;
+  }
+  
+  .nav-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Fix stats bar */
+  .stats-bar {
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  .stats-inner {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .stat-item {
+    min-width: 0;
+  }
+  
+  /* Fix feature cards */
+  .feature-card {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Fix pipeline nodes */
+  .pipe-node {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  
+  /* Fix CTA section */
+  .cta-glow {
+    max-width: 100vw;
+    width: 100%;
+  }
+  
+  /* Touch improvements */
+  button,
+  a {
+    -webkit-tap-highlight-color: rgba(99, 102, 241, 0.15);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  /* Better touch targets */
+  .nav-cta,
+  .btn-primary,
+  .btn-secondary {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Fix padding and margins */
+  .hero-content,
+  .section-header,
+  .pipeline-inner {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+  }
+  
+  /* Fix text sizing */
+  .hero-subtitle,
+  .section-subtitle,
+  .cta-subtitle {
+    max-width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  /* Fix button groups */
+  .hero-actions {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  
+  .hero-actions a {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* ── Safe area insets for notched devices ───────────────── */
+
+@supports (padding: max(0px)) {
+  @media (max-width: 600px) {
+    nav {
+      padding-left: max(16px, env(safe-area-inset-left));
+      padding-right: max(16px, env(safe-area-inset-right));
+      padding-top: max(0px, env(safe-area-inset-top));
+    }
+    
+    .hero,
+    .features,
+    .pipeline,
+    .cta {
+      padding-left: max(16px, env(safe-area-inset-left));
+      padding-right: max(16px, env(safe-area-inset-right));
+    }
+    
+    footer {
+      padding-left: max(16px, env(safe-area-inset-left));
+      padding-right: max(16px, env(safe-area-inset-right));
+      padding-bottom: max(32px, env(safe-area-inset-bottom));
+    }
+  }
+}
+
+/* ── Landscape mode ─────────────────────────────────────── */
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .hero {
+    min-height: auto;
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+  
+  .hero-title {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+  
+  .robot-vis {
+    opacity: 0.06;
+  }
+}
+
+/* ── Extra small devices ────────────────────────────────── */
+
+@media (max-width: 380px) {
+  .hero-actions {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  
+  .hero-subtitle,
+  .section-subtitle,
+  .cta-subtitle {
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  
+  .features,
+  .pipeline,
+  .cta {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/* ── Debug helper (remove in production) ────────────────── */
+
+/* Uncomment to debug horizontal scroll issues */
+/*
+@media (max-width: 600px) {
+  * {
+    outline: 1px solid rgba(255, 0, 0, 0.1);
+  }
+  
+  *:hover {
+    outline: 1px solid rgba(255, 0, 0, 0.5);
+  }
+}
+*/

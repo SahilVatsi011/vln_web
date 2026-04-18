@@ -1,0 +1,385 @@
+/**
+ * ambient_ui.css — Minimal, auto-hiding UI components
+ * No buttons, just intelligent overlays
+ */
+
+/* ── Ambient Overlay ─────────────────────────────────────── */
+
+.ambient-overlay {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 14px 28px;
+  border-radius: 99px;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 9999;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ambient-overlay.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.ambient-overlay.info {
+  background: rgba(34, 211, 238, 0.2);
+  border-color: rgba(34, 211, 238, 0.3);
+  color: #22d3ee;
+}
+
+.ambient-overlay.success {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #10b981;
+}
+
+.ambient-overlay.warning {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: #f59e0b;
+}
+
+.ambient-overlay.critical {
+  background: rgba(244, 63, 94, 0.2);
+  border-color: rgba(244, 63, 94, 0.3);
+  color: #f43f5e;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 8px 32px rgba(244, 63, 94, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 48px rgba(244, 63, 94, 0.6);
+  }
+}
+
+/* ── Progress Ring ──────────────────────────────────────── */
+
+.progress-ring {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  opacity: 0;
+  transform: scale(0.8);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 9998;
+}
+
+.progress-ring.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.progress-ring svg {
+  transform: rotate(-90deg);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.progress-ring .ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 4;
+}
+
+.progress-ring .ring-progress {
+  fill: none;
+  stroke: var(--cyan, #22d3ee);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 201; /* 2πr where r=32 */
+  stroke-dashoffset: 201;
+  transition: stroke-dashoffset 0.6s ease, stroke 0.3s ease;
+}
+
+.progress-ring .ring-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.progress-ring .ring-percent {
+  display: block;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+
+.progress-ring .ring-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+/* ── Suggestion Cards ───────────────────────────────────── */
+
+.suggestion-cards {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  transform: translateX(20px);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 9997;
+  max-width: 280px;
+}
+
+.suggestion-cards.show {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+.suggestions-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.suggestion-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.suggestion-card:hover {
+  background: rgba(0, 0, 0, 0.6);
+  border-color: rgba(34, 211, 238, 0.5);
+  transform: translateX(-4px);
+  box-shadow: 0 6px 24px rgba(34, 211, 238, 0.3);
+}
+
+.suggestion-card.priority-high {
+  border-color: rgba(34, 211, 238, 0.3);
+}
+
+.suggestion-card.priority-high:hover {
+  border-color: rgba(34, 211, 238, 0.6);
+}
+
+.suggestion-card.priority-medium {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.suggestion-card.priority-medium:hover {
+  border-color: rgba(245, 158, 11, 0.6);
+}
+
+.suggestion-card.priority-low {
+  border-color: rgba(255, 255, 255, 0.1);
+  opacity: 0.8;
+}
+
+.suggestion-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.suggestion-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  line-height: 1.4;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .ambient-overlay {
+    bottom: 20px;
+    padding: 12px 20px;
+    font-size: 13px;
+    max-width: calc(100vw - 40px);
+  }
+  
+  .progress-ring {
+    top: 15px;
+    right: 15px;
+  }
+  
+  .progress-ring svg {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .progress-ring .ring-bg,
+  .progress-ring .ring-progress {
+    stroke-dasharray: 157; /* 2πr where r=25 */
+    stroke-dashoffset: 157;
+  }
+  
+  .progress-ring .ring-percent {
+    font-size: 16px;
+  }
+  
+  .progress-ring .ring-label {
+    font-size: 9px;
+  }
+  
+  .suggestion-cards {
+    right: 15px;
+    bottom: 80px;
+    max-width: calc(100vw - 30px);
+  }
+  
+  .suggestion-card {
+    padding: 10px 14px;
+  }
+  
+  .suggestion-text {
+    font-size: 13px;
+  }
+  
+  .suggestion-icon {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ambient-overlay {
+    bottom: 15px;
+    padding: 10px 16px;
+    font-size: 12px;
+    max-width: calc(100vw - 30px);
+    border-radius: 12px;
+  }
+  
+  .progress-ring {
+    top: 12px;
+    right: 12px;
+  }
+  
+  .progress-ring svg {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .progress-ring .ring-bg,
+  .progress-ring .ring-progress {
+    stroke-dasharray: 138; /* 2πr where r=22 */
+    stroke-dashoffset: 138;
+    stroke-width: 3;
+  }
+  
+  .progress-ring .ring-bg {
+    cx: 30;
+    cy: 30;
+    r: 22;
+  }
+  
+  .progress-ring .ring-progress {
+    cx: 30;
+    cy: 30;
+    r: 22;
+  }
+  
+  .progress-ring .ring-percent {
+    font-size: 14px;
+  }
+  
+  .progress-ring .ring-label {
+    font-size: 8px;
+  }
+  
+  .suggestion-cards {
+    right: 12px;
+    bottom: 70px;
+    max-width: calc(100vw - 24px);
+  }
+  
+  .suggestions-title {
+    font-size: 11px;
+  }
+  
+  .suggestion-card {
+    padding: 9px 12px;
+    gap: 10px;
+  }
+  
+  .suggestion-text {
+    font-size: 12px;
+  }
+  
+  .suggestion-icon {
+    font-size: 16px;
+  }
+}
+
+/* ── Animations ─────────────────────────────────────────── */
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ambient-overlay.show {
+  animation: slide-up 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.suggestion-card {
+  animation: slide-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+.suggestion-card:nth-child(2) {
+  animation-delay: 0.05s;
+}
+
+.suggestion-card:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+.suggestion-card:nth-child(4) {
+  animation-delay: 0.15s;
+}
